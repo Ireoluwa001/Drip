@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drip — Banking App</title>
+<link rel="stylesheet" href="Drip.css">
+</head>
+<body>
+
+<!-- ===== LANDING SCREEN ===== -->
+<div class="auth-screen simple-landing" id="landingScreen">
+  <div class="bg-drops">
+    <svg class="bg-drop" style="top:8%; left:12%; animation-delay:0s;" width="22" height="22" viewBox="0 0 100 100"><use href="#dropShape" fill="#7fd858" opacity="0.18"/></svg>
+    <svg class="bg-drop" style="top:16%; right:14%; animation-delay:1.2s;" width="16" height="16" viewBox="0 0 100 100"><use href="#dropShape" fill="#8b7bf0" opacity="0.2"/></svg>
+    <svg class="bg-drop" style="top:60%; left:8%; animation-delay:2.1s;" width="18" height="18" viewBox="0 0 100 100"><use href="#dropShape" fill="#e87ba6" opacity="0.16"/></svg>
+    <svg class="bg-drop" style="top:68%; right:10%; animation-delay:0.6s;" width="24" height="24" viewBox="0 0 100 100"><use href="#dropShape" fill="#7fd858" opacity="0.14"/></svg>
+    <svg class="bg-drop" style="top:38%; right:22%; animation-delay:1.8s;" width="14" height="14" viewBox="0 0 100 100"><use href="#dropShape" fill="#8b7bf0" opacity="0.15"/></svg>
+  </div>
+
+  <div class="simple-center">
+    <div class="hero-mark hero-mark-lg">
+      <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="dropShape" d="M50 8 C34 32 16 54 16 73 A34 34 0 0 0 84 73 C84 54 66 32 50 8 Z"/>
+        </defs>
+        <use href="#dropShape" transform="translate(-6,-4) scale(0.62)" fill="#8b7bf0"/>
+        <use href="#dropShape" transform="translate(30,26) scale(0.55)" fill="#7fd858"/>
+      </svg>
+    </div>
+    <div class="simple-headline">Money, uncomplicated.</div>
+  </div>
+
+  <div class="auth-actions">
+    <button class="btn btn-primary btn-block" id="getStartedBtn">Get started</button>
+    <button class="btn btn-ghost btn-block" id="landingLoginBtn" style="margin-top:10px;">I already have an account</button>
+  </div>
+</div>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div class="auth-screen" id="loginScreen" style="display:none;">
+  <div style="padding: 40px 24px 0;">
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:26px;">
+      <svg width="22" height="22" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <use href="#dropShape" transform="translate(-6,-4) scale(0.62)" fill="#8b7bf0"/>
+        <use href="#dropShape" transform="translate(30,26) scale(0.55)" fill="#7fd858"/>
+      </svg>
+      <span style="font-weight:bold; font-size:18px;">drip<span style="color:var(--green);">.</span></span>
+    </div>
+    <button class="auth-back" id="loginBackBtn">Back</button>
+    <div class="auth-tagline">Log in</div>
+    <div class="auth-form-note">Enter any email and password</div>
+
+    <form id="loginForm">
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="you@email.com" required>
+      </div>
+      <div class="form-field">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+    <div class="auth-signup">Don't have an account? <span id="signupLink">Sign up</span></div>
+  </div>
+</div>
+
+<!-- ===== SIGN UP SCREEN ===== -->
+<div class="auth-screen" id="signupScreen" style="display:none;">
+  <div style="padding: 40px 24px 0;">
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:26px;">
+      <svg width="22" height="22" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <use href="#dropShape" transform="translate(-6,-4) scale(0.62)" fill="#8b7bf0"/>
+        <use href="#dropShape" transform="translate(30,26) scale(0.55)" fill="#7fd858"/>
+      </svg>
+      <span style="font-weight:bold; font-size:18px;">drip<span style="color:var(--green);">.</span></span>
+    </div>
+    <button class="auth-back" id="signupBackBtn">Back</button>
+    <div class="auth-tagline">Create your account</div>
+    <div class="auth-form-note">Takes about a minute</div>
+
+    <form id="signupForm">
+      <div class="form-field">
+        <label>Full name</label>
+        <input type="text" placeholder="Your full name" required>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="you@email.com" required>
+      </div>
+      <div class="form-field">
+        <label>Phone number</label>
+        <input type="tel" placeholder="+234 800 000 0000" required>
+      </div>
+      <div class="form-field">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Create account</button>
+    </form>
+    <div class="auth-signup">Already have an account? <span id="loginLink">Log in</span></div>
+  </div>
+</div>
+
+<div class="app-shell" id="appShell" style="display:none;">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">drip<span>.</span></div>
+
+    <div class="nav-group">
+      <div class="nav-label">Overview</div>
+      <button class="nav-item active" data-target="dashboard">Dashboard</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Grow</div>
+      <button class="nav-item" data-target="savings">Savings challenges</button>
+      <button class="nav-item" data-target="group-savings">Group savings</button>
+      <button class="nav-item" data-target="investments">Investments</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Spend</div>
+      <button class="nav-item" data-target="marketplace">Marketplace</button>
+      <button class="nav-item" data-target="cashback">Cashback</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">More</div>
+      <button class="nav-item" data-target="education">Financial education</button>
+      <button class="nav-item" data-target="referrals">Referrals</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="nav-item nav-item-footer" data-target="profile">
+        <div class="name">Ireoluwatomiwa Ayodele</div>
+        <div class="handle">@ireoluwa.drip</div>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <button class="menu-toggle" id="menuToggle">Menu</button>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="page-section active" id="dashboard">
+
+      <div class="topbar">
+        <div>
+          <h1>Good afternoon, Ireoluwatomiwa</h1>
+          <div class="sub">Here's what's happening with your money.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">₦128,450.00</div>
+          <div class="label">Total balance</div>
+        </div>
+      </div>
+
+      <div class="grid-4" style="margin-bottom: 22px;">
+        <div class="card stat-card">
+          <span class="stat-label">This month spent</span>
+          <b>₦42,300</b>
+          <span class="stat-trend">Down 8% vs last month</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Cashback earned</span>
+          <b>₦3,120</b>
+          <span class="stat-trend">Up 12% vs last month</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Savings goals</span>
+          <b>3 active</b>
+          <span class="stat-trend" style="color:var(--purple);">68% avg progress</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Investment value</span>
+          <b>₦18,900</b>
+          <span class="stat-trend">Up 4.2% this month</span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="align-items: start;">
+
+        <div class="card">
+          <h3>Recent activity</h3>
+          <div class="card-sub">Your latest transactions</div>
+
+          <div class="list-row">
+            <div class="left">
+              <div class="row-icon violet">S</div>
+              <div>
+                <div class="title">Spotify</div>
+                <div class="meta">Today, 9:12 AM</div>
+              </div>
+            </div>
+            <div class="amount">-₦1,900</div>
+          </div>
+
+          <div class="list-row">
+            <div class="left">
+              <div class="row-icon lime">T</div>
+              <div>
+                <div class="title">Trip fund top-up</div>
+                <div class="meta">Yesterday, 6:40 PM</div>
+              </div>
+            </div>
+            <div class="amount positive">+₦15,000</div>
+          </div>
+
+          <div class="list-row">
+            <div class="left">
+              <div class="row-icon pink">M</div>
+              <div>
+                <div class="title">Shein — Marketplace</div>
+                <div class="meta">Yesterday, 2:05 PM</div>
+              </div>
+            </div>
+            <div class="amount">-₦8,200</div>
+          </div>
+
+          <div class="list-row">
+            <div class="left">
+              <div class="row-icon violet">G</div>
+              <div>
+                <div class="title">Rent split — received</div>
+                <div class="meta">Mon, 11:20 AM</div>
+              </div>
+            </div>
+            <div class="amount positive">+₦25,000</div>
+          </div>
+
+          <button class="btn btn-ghost btn-sm nav-link" data-target="cashback" style="margin-top: 12px;">View all transactions</button>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:18px;">
+
+          <div class="card">
+            <h3>Trip fund goal</h3>
+            <div class="card-sub">Savings challenge · ends in 12 days</div>
+            <div class="progress-track"><div class="progress-fill" style="width:68%;"></div></div>
+            <div class="progress-meta"><span>₦68,000 saved</span><span>Goal: ₦100,000</span></div>
+            <button class="btn btn-primary btn-block btn-sm nav-link" data-target="savings" style="margin-top:14px;">Add to goal</button>
+          </div>
+
+          <div class="card">
+            <h3>Quick actions</h3>
+            <div class="card-sub">Things people do most</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <button class="btn btn-ghost btn-block nav-link" data-target="group-savings">Start a group savings pool</button>
+              <button class="btn btn-ghost btn-block nav-link" data-target="referrals">Invite a friend, get paid</button>
+              <button class="btn btn-ghost btn-block nav-link" data-target="marketplace">Browse campus deals</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== SAVINGS CHALLENGES ===== -->
+    <section class="page-section" id="savings">
+
+      <div class="topbar">
+        <div>
+          <h1>Savings challenges</h1>
+          <div class="sub">Small, consistent moves that add up.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">₦128,450.00</div>
+          <div class="label">Total balance</div>
+        </div>
+      </div>
+
+      <div class="section-title">Your active challenges</div>
+      <div class="grid-3" style="margin-bottom: 32px;">
+
+        <div class="card">
+          <span class="badge badge-lime">In progress</span>
+          <h3 style="margin-top:12px;">Trip fund</h3>
+          <div class="card-sub">Save ₦100,000 in 30 days</div>
+          <div class="progress-track"><div class="progress-fill" style="width:68%;"></div></div>
+          <div class="progress-meta"><span>₦68,000</span><span>68%</span></div>
+          <button class="btn btn-primary btn-block btn-sm add-btn" style="margin-top:14px;">Add ₦5,000</button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-violet">In progress</span>
+          <h3 style="margin-top:12px;">No-spend weekends</h3>
+          <div class="card-sub">4 weekends with zero non-essential spend</div>
+          <div class="progress-track"><div class="progress-fill" style="width:50%;"></div></div>
+          <div class="progress-meta"><span>2 of 4 weeks</span><span>50%</span></div>
+          <button class="btn btn-ghost btn-block btn-sm" disabled style="margin-top:14px; opacity:0.6;">Auto-tracked</button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-pink">New</span>
+          <h3 style="margin-top:12px;">₦52 round-up challenge</h3>
+          <div class="card-sub">52 weeks, increasing by ₦52 each week</div>
+          <div class="progress-track"><div class="progress-fill" style="width:15%;"></div></div>
+          <div class="progress-meta"><span>Week 8 of 52</span><span>15%</span></div>
+          <button class="btn btn-primary btn-block btn-sm add-btn" style="margin-top:14px;">Add this week</button>
+        </div>
+
+      </div>
+
+      <div class="section-title">Discover more challenges</div>
+      <div class="grid-3">
+
+        <div class="card">
+          <h3>Textbook fund</h3>
+          <div class="card-sub">Save ₦40,000 before next semester starts</div>
+          <button class="btn btn-ghost btn-block btn-sm join-btn">Join challenge</button>
+        </div>
+
+        <div class="card">
+          <h3>Skip-a-sub month</h3>
+          <div class="card-sub">Pause one subscription for 30 days and bank the difference</div>
+          <button class="btn btn-ghost btn-block btn-sm join-btn">Join challenge</button>
+        </div>
+
+        <div class="card">
+          <h3>52-day streak</h3>
+          <div class="card-sub">Save something, however small, every single day</div>
+          <button class="btn btn-ghost btn-block btn-sm join-btn">Join challenge</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== GROUP SAVINGS ===== -->
+    <section class="page-section" id="group-savings">
+
+      <div class="topbar">
+        <div>
+          <h1>Group savings</h1>
+          <div class="sub">Save toward something together — everyone sees the progress.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">₦128,450.00</div>
+          <div class="label">Total balance</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="align-items: start;">
+
+        <div>
+          <div class="section-title">Your groups</div>
+
+          <div class="card" style="margin-bottom: 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:start;">
+              <div>
+                <h3>Lagos trip squad</h3>
+                <div class="card-sub">6 members · goal ₦300,000</div>
+              </div>
+              <span class="badge badge-lime">Active</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:74%;"></div></div>
+            <div class="progress-meta"><span>₦222,000 saved</span><span>74%</span></div>
+            <div style="display:flex; gap:8px; margin-top:14px;">
+              <button class="btn btn-primary btn-sm contribute-btn" style="flex:1;">Contribute</button>
+              <button class="btn btn-ghost btn-sm" style="flex:1;">View members</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:start;">
+              <div>
+                <h3>Roommates — rent buffer</h3>
+                <div class="card-sub">3 members · goal ₦150,000</div>
+              </div>
+              <span class="badge badge-violet">Active</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:40%;"></div></div>
+            <div class="progress-meta"><span>₦60,000 saved</span><span>40%</span></div>
+            <div style="display:flex; gap:8px; margin-top:14px;">
+              <button class="btn btn-primary btn-sm contribute-btn" style="flex:1;">Contribute</button>
+              <button class="btn btn-ghost btn-sm" style="flex:1;">View members</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-title">Start a new group</div>
+          <div class="card">
+            <form id="groupForm">
+              <div class="form-field">
+                <label>Group name</label>
+                <input type="text" placeholder="e.g. Detty December fund" required>
+              </div>
+              <div class="form-field">
+                <label>Savings goal (₦)</label>
+                <input type="number" placeholder="150000" required>
+              </div>
+              <div class="form-field">
+                <label>Invite by email or username</label>
+                <input type="text" placeholder="Add members, separated by commas">
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Create group</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== MARKETPLACE ===== -->
+    <section class="page-section" id="marketplace">
+
+      <div class="topbar">
+        <div>
+          <h1>Marketplace</h1>
+          <div class="sub">Deals from brands you already spend on, paid straight from Drip.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">₦128,450.00</div>
+          <div class="label">Total balance</div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-filter="all">All deals</button>
+        <button class="tab-btn" data-filter="campus">Campus deals</button>
+        <button class="tab-btn" data-filter="merchant">Merchant partners</button>
+      </div>
+
+      <div class="grid-3" id="dealGrid">
+
+        <div class="card deal-card" data-category="merchant">
+          <span class="badge badge-lime">15% off</span>
+          <h3 style="margin-top:12px;">Chicken Republic</h3>
+          <div class="card-sub">Merchant partner · valid till end of month</div>
+          <button class="btn btn-ghost btn-block btn-sm claim-btn">Claim deal</button>
+        </div>
+
+        <div class="card deal-card" data-category="campus">
+          <span class="badge badge-violet">₦2,000 off</span>
+          <h3 style="margin-top:12px;">Jumia Campus Bundle</h3>
+          <div class="card-sub">Campus deal · verified students only</div>
+          <button class="btn btn-ghost btn-block btn-sm claim-btn">Claim deal</button>
+        </div>
+
+        <div class="card deal-card" data-category="merchant">
+          <span class="badge badge-pink">Buy 1 Get 1</span>
+          <h3 style="margin-top:12px;">Cold Stone Creamery</h3>
+          <div class="card-sub">Merchant partner · weekends only</div>
+          <button class="btn btn-ghost btn-block btn-sm claim-btn">Claim deal</button>
+        </div>
+
+        <div class="card deal-card" data-category="campus">
+          <span class="badge badge-lime">20% off</span>
+          <h3 style="margin-top:12px;">Campus Print Hub</h3>
+          <div class="card-sub">Campus deal · printing & binding</div>
+          <button class="btn btn-ghost btn-block btn-sm claim-btn">Claim deal</button>
+        </div>
+
+        <div class="card deal-card" data-category="merchant">
+          <span class="badge badge-violet">10% cashback</span>
+          <h3 style="margin-top:12px;">Shein</h3>
+          <div class="card-sub">Merchant partner · online only</div>
+          <button class="btn btn-ghost btn-block btn-sm claim-btn">Claim deal</button>
+        </div>
+
+        <div class="card deal-card" data-category="campus">
+          <span class="badge badge-pink">Free delivery</span>
+          <h3 style="margin-top:12px;">Chowdeck Student Plan</h3>
+          <div class="card-sub">Campus deal · orders near your school</div>
+          <button class="btn btn-ghost btn-block btn-sm claim-btn">Claim deal</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== CASHBACK ===== -->
+    <section class="page-section" id="cashback">
+
+      <div class="topbar">
+        <div>
+          <h1>Cashback</h1>
+          <div class="sub">Every swipe with your Drip card earns something back.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">₦128,450.00</div>
+          <div class="label">Total balance</div>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 26px;">
+        <div class="card stat-card">
+          <span class="stat-label">Earned this month</span>
+          <b>₦3,120</b>
+          <span class="stat-trend">Up 12% vs last month</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Lifetime cashback</span>
+          <b>₦41,850</b>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Current tier</span>
+          <b style="color: var(--green);">Gold — 3%</b>
+          <span class="stat-trend" style="color: var(--text-muted);">₦58,000 to Platinum</span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="align-items:start;">
+
+        <div class="card">
+          <h3>Recent cashback</h3>
+          <div class="card-sub">Earned from your last transactions</div>
+
+          <div class="list-row">
+            <div class="left">
+              <div class="row-icon lime">S</div>
+              <div><div class="title">Shein</div><div class="meta">3% cashback</div></div>
+            </div>
+            <div class="amount positive">+₦246</div>
+          </div>
+
+          <div class="list-row">
+            <div class="left">
+              <div class="row-icon violet">C</div>
+              <div><div class="title">Chicken Republic</div><div class="meta">5% partner bonus</div></div>
+            </div>
+            <div class="amount positive">+₦190</div>
+          </div>
+
+          <div class="list-row">
+            <div class="left">
+              <div class="row-icon pink">S</div>
+              <div><div class="title">Spotify</div><div class="meta">2% cashback</div></div>
+            </div>
+            <div class="amount positive">+₦38</div>
+          </div>
+
+          <div class="list-row">
+            <div class="left">
+              <div class="row-icon lime">C</div>
+              <div><div class="title">Cold Stone Creamery</div><div class="meta">5% partner bonus</div></div>
+            </div>
+            <div class="amount positive">+₦85</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Cashback tiers</h3>
+          <div class="card-sub">Spend more with your card, unlock more back</div>
+
+          <div class="list-row">
+            <div class="left"><div class="row-icon violet">1</div><div><div class="title">Silver</div><div class="meta">1% on all spend</div></div></div>
+            <span class="badge badge-muted">Unlocked</span>
+          </div>
+          <div class="list-row">
+            <div class="left"><div class="row-icon lime">2</div><div><div class="title">Gold</div><div class="meta">3% on all spend</div></div></div>
+            <span class="badge badge-lime">Current</span>
+          </div>
+          <div class="list-row">
+            <div class="left"><div class="row-icon pink">3</div><div><div class="title">Platinum</div><div class="meta">5% on all spend + partner bonuses</div></div></div>
+            <span class="badge badge-muted">₦58,000 to go</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== INVESTMENTS ===== -->
+    <section class="page-section" id="investments">
+
+      <div class="topbar">
+        <div>
+          <h1>Investments</h1>
+          <div class="sub">Start with whatever you've got — even spare change.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">₦128,450.00</div>
+          <div class="label">Total balance</div>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 26px;">
+        <div class="card stat-card">
+          <span class="stat-label">Portfolio value</span>
+          <b id="portfolioValue">₦18,900</b>
+          <span class="stat-trend">Up 4.2% this month</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Total invested</span>
+          <b>₦17,300</b>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Round-ups this month</span>
+          <b>₦640</b>
+          <span class="stat-trend" style="color: var(--purple);">Auto-invested</span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="align-items:start;">
+
+        <div class="card">
+          <h3>Your holdings</h3>
+          <div class="card-sub">Diversified starter portfolio</div>
+
+          <div class="list-row">
+            <div class="left"><div class="row-icon lime">M</div><div><div class="title">Money market fund</div><div class="meta">Low risk</div></div></div>
+            <div class="amount">₦9,800</div>
+          </div>
+          <div class="list-row">
+            <div class="left"><div class="row-icon violet">G</div><div><div class="title">Global index fund</div><div class="meta">Medium risk</div></div></div>
+            <div class="amount">₦6,200</div>
+          </div>
+          <div class="list-row">
+            <div class="left"><div class="row-icon pink">D</div><div><div class="title">Digital assets basket</div><div class="meta">High risk</div></div></div>
+            <div class="amount">₦2,900</div>
+          </div>
+
+          <label style="display:flex; align-items:center; gap:10px; margin-top:18px; font-size:13px; color: var(--text-muted);">
+            <input type="checkbox" checked style="width:16px; height:16px;">
+            Round up card purchases and auto-invest the change
+          </label>
+        </div>
+
+        <div class="card">
+          <h3>Invest an amount</h3>
+          <div class="card-sub">Add funds to your portfolio</div>
+          <form id="investForm">
+            <div class="form-field">
+              <label>Amount (₦)</label>
+              <input type="number" id="investAmount" placeholder="5000" required>
+            </div>
+            <div class="form-field">
+              <label>Choose a fund</label>
+              <select>
+                <option>Money market fund — low risk</option>
+                <option>Global index fund — medium risk</option>
+                <option>Digital assets basket — high risk</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Invest now</button>
+          </form>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== FINANCIAL EDUCATION ===== -->
+    <section class="page-section" id="education">
+
+      <div class="topbar">
+        <div>
+          <h1>Financial education</h1>
+          <div class="sub">Bite-sized lessons that actually stick.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">4 of 12</div>
+          <div class="label">Lessons completed</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 26px;">
+        <h3>Your learning progress</h3>
+        <div class="card-sub">Keep going — you're a third of the way through the basics track</div>
+        <div class="progress-track"><div class="progress-fill" style="width:33%;"></div></div>
+        <div class="progress-meta"><span>4 lessons done</span><span>33%</span></div>
+      </div>
+
+      <div class="section-title">Basics track</div>
+      <div class="grid-3" style="margin-bottom: 32px;">
+
+        <div class="card lesson-card">
+          <span class="badge badge-lime">Completed</span>
+          <h3 style="margin-top:12px;">Budgeting 101</h3>
+          <div class="card-sub">6 min · How to actually stick to a budget</div>
+        </div>
+
+        <div class="card lesson-card">
+          <span class="badge badge-lime">Completed</span>
+          <h3 style="margin-top:12px;">Understanding interest</h3>
+          <div class="card-sub">5 min · Why compound interest is your friend</div>
+        </div>
+
+        <div class="card lesson-card">
+          <span class="badge badge-muted">Not started</span>
+          <h3 style="margin-top:12px;">Credit scores explained</h3>
+          <div class="card-sub">7 min · What actually affects your score</div>
+          <button class="btn btn-ghost btn-block btn-sm start-btn" style="margin-top:12px;">Start lesson</button>
+        </div>
+
+        <div class="card lesson-card">
+          <span class="badge badge-muted">Not started</span>
+          <h3 style="margin-top:12px;">Investing basics</h3>
+          <div class="card-sub">8 min · Risk, return, and getting started small</div>
+          <button class="btn btn-ghost btn-block btn-sm start-btn" style="margin-top:12px;">Start lesson</button>
+        </div>
+
+        <div class="card lesson-card">
+          <span class="badge badge-muted">Not started</span>
+          <h3 style="margin-top:12px;">Avoiding debt traps</h3>
+          <div class="card-sub">6 min · Spotting bad loans before you sign</div>
+          <button class="btn btn-ghost btn-block btn-sm start-btn" style="margin-top:12px;">Start lesson</button>
+        </div>
+
+        <div class="card lesson-card">
+          <span class="badge badge-muted">Not started</span>
+          <h3 style="margin-top:12px;">Building an emergency fund</h3>
+          <div class="card-sub">5 min · How much is actually enough</div>
+          <button class="btn btn-ghost btn-block btn-sm start-btn" style="margin-top:12px;">Start lesson</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== REFERRALS ===== -->
+    <section class="page-section" id="referrals">
+
+      <div class="topbar">
+        <div>
+          <h1>Referrals</h1>
+          <div class="sub">Invite your friends, you both get paid.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">₦12,500</div>
+          <div class="label">Earned from referrals</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="align-items:start; margin-bottom: 26px;">
+
+        <div class="card">
+          <h3>Your referral code</h3>
+          <div class="card-sub">Share this code — you both get ₦2,500 when they sign up and fund their account</div>
+          <div style="display:flex; gap:10px; margin-bottom: 16px;">
+            <div style="flex:1; background: var(--bg-base); border:1px solid var(--line); border-radius:6px; padding:12px 16px; font-size:16px; letter-spacing: 0.05em; color: var(--green);" id="refCode">IRE-DR1P</div>
+            <button class="btn btn-primary btn-sm" id="copyBtn">Copy</button>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-ghost btn-sm" style="flex:1;">Share via WhatsApp</button>
+            <button class="btn btn-ghost btn-sm" style="flex:1;">Share via SMS</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Invite by email</h3>
+          <div class="card-sub">We'll send them your code directly</div>
+          <form id="inviteForm">
+            <div class="form-field">
+              <label>Friend's email</label>
+              <input type="email" placeholder="friend@email.com" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send invite</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="section-title">Your referrals</div>
+      <div class="card">
+
+        <div class="list-row">
+          <div class="left">
+            <div class="row-icon lime">✓</div>
+            <div><div class="title">Tobi Ade</div><div class="meta">Joined & funded — reward paid</div></div>
+          </div>
+          <div class="amount positive">+₦2,500</div>
+        </div>
+
+        <div class="list-row">
+          <div class="left">
+            <div class="row-icon lime">✓</div>
+            <div><div class="title">Kemi Johnson</div><div class="meta">Joined & funded — reward paid</div></div>
+          </div>
+          <div class="amount positive">+₦2,500</div>
+        </div>
+
+        <div class="list-row">
+          <div class="left">
+            <div class="row-icon violet">…</div>
+            <div><div class="title">David Okoro</div><div class="meta">Signed up — waiting on first deposit</div></div>
+          </div>
+          <span class="badge badge-muted">Pending</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== PROFILE ===== -->
+    <section class="page-section" id="profile">
+
+      <div class="topbar">
+        <div>
+          <h1>Profile</h1>
+          <div class="sub">Manage your account, settings, and preferences.</div>
+        </div>
+        <div class="balance-chip">
+          <div class="amount">₦128,450.00</div>
+          <div class="label">Total balance</div>
+        </div>
+      </div>
+
+      <div class="card profile-header-card" style="margin-bottom: 26px;">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar">IA</div>
+          <div>
+            <h2 style="margin:0 0 4px;">Ireoluwatomiwa Ayodele</h2>
+            <div class="card-sub">@ireoluwa.drip</div>
+            <span class="badge badge-lime" style="margin-top:8px; display:inline-block;">Gold member</span>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" id="editProfileBtn" style="align-self:flex-start;">Edit profile</button>
+      </div>
+
+      <div class="grid-2" style="align-items:start;">
+
+        <div style="display:flex; flex-direction:column; gap:18px;">
+
+          <div class="card" id="profileViewCard">
+            <h3>Personal details</h3>
+            <div class="card-sub">Your basic account information</div>
+            <div class="profile-detail-row">
+              <span class="profile-detail-label">Full name</span>
+              <span class="profile-detail-value">Ireoluwatomiwa Ayodele</span>
+            </div>
+            <div class="profile-detail-row">
+              <span class="profile-detail-label">Username</span>
+              <span class="profile-detail-value">@ireoluwa.drip</span>
+            </div>
+            <div class="profile-detail-row">
+              <span class="profile-detail-label">Email</span>
+              <span class="profile-detail-value">ireoluwatomiwa@gmail.com</span>
+            </div>
+            <div class="profile-detail-row">
+              <span class="profile-detail-label">Phone</span>
+              <span class="profile-detail-value">+234 816 785 4713</span>
+            </div>
+            <div class="profile-detail-row">
+              <span class="profile-detail-label">Date of birth</span>
+              <span class="profile-detail-value">29 February 2004</span>
+            </div>
+            <div class="profile-detail-row">
+              <span class="profile-detail-label">Account number</span>
+              <span class="profile-detail-value">8167854713</span>
+            </div>
+          </div>
+
+          <div class="card" id="profileEditCard" style="display:none;">
+            <h3>Edit personal details</h3>
+            <div class="card-sub">Changes take effect immediately</div>
+            <form id="profileForm">
+              <div class="form-field">
+                <label>Full name</label>
+                <input type="text" value="Ireoluwatomiwa Ayodele" required>
+              </div>
+              <div class="form-field">
+                <label>Username</label>
+                <input type="text" value="ireoluwa.drip" required>
+              </div>
+              <div class="form-field">
+                <label>Email address</label>
+                <input type="email" value="ireoluwatomiwa@gmail.com" required>
+              </div>
+              <div class="form-field">
+                <label>Phone number</label>
+                <input type="tel" value="+234 816 785 4713">
+              </div>
+              <div style="display:flex; gap:10px;">
+                <button type="submit" class="btn btn-primary" style="flex:1;">Save changes</button>
+                <button type="button" class="btn btn-ghost" style="flex:1;" id="cancelEditBtn">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3>Security</h3>
+            <div class="card-sub">Keep your account safe</div>
+            <div class="list-row">
+              <div class="left">
+                <div class="row-icon lime">🔒</div>
+                <div><div class="title">Change PIN</div><div class="meta">Last changed 3 months ago</div></div>
+              </div>
+              <button class="btn btn-ghost btn-sm">Update</button>
+            </div>
+            <div class="list-row">
+              <div class="left">
+                <div class="row-icon violet">📱</div>
+                <div><div class="title">Two-factor authentication</div><div class="meta">Enabled via SMS</div></div>
+              </div>
+              <span class="badge badge-lime">On</span>
+            </div>
+            <div class="list-row">
+              <div class="left">
+                <div class="row-icon pink">🗝</div>
+                <div><div class="title">Change password</div><div class="meta">For your Drip account login</div></div>
+              </div>
+              <button class="btn btn-ghost btn-sm">Update</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:18px;">
+
+          <div class="card">
+            <h3>Notifications</h3>
+            <div class="card-sub">Choose what you hear about</div>
+            <div class="list-row">
+              <div class="left">
+                <div><div class="title">Transaction alerts</div><div class="meta">Every debit and credit on your account</div></div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="list-row">
+              <div class="left">
+                <div><div class="title">Savings reminders</div><div class="meta">Nudges when you're behind on a goal</div></div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="list-row">
+              <div class="left">
+                <div><div class="title">Cashback earned</div><div class="meta">Notify me when cashback is credited</div></div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="list-row">
+              <div class="left">
+                <div><div class="title">New deals & offers</div><div class="meta">Marketplace and partner promotions</div></div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox">
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="list-row">
+              <div class="left">
+                <div><div class="title">Investment updates</div><div class="meta">Weekly portfolio performance summaries</div></div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Linked accounts</h3>
+            <div class="card-sub">Banks and cards connected to Drip</div>
+            <div class="list-row">
+              <div class="left">
+                <div class="row-icon lime">Z</div>
+                <div><div class="title">Zenith Bank</div><div class="meta">•••• 4521 · Verified</div></div>
+              </div>
+              <button class="btn btn-ghost btn-sm">Remove</button>
+            </div>
+            <div class="list-row">
+              <div class="left">
+                <div class="row-icon violet">G</div>
+                <div><div class="title">GTBank</div><div class="meta">•••• 8803 · Verified</div></div>
+              </div>
+              <button class="btn btn-ghost btn-sm">Remove</button>
+            </div>
+            <button class="btn btn-ghost btn-block btn-sm" style="margin-top:12px;">+ Link another account</button>
+          </div>
+
+          <div class="card">
+            <h3>Help & support</h3>
+            <div class="card-sub">We're here when you need us</div>
+            <div class="list-row">
+              <div class="left">
+                <div><div class="title">Help centre</div><div class="meta">Browse FAQs and guides</div></div>
+              </div>
+              <button class="btn btn-ghost btn-sm">Open</button>
+            </div>
+            <div class="list-row">
+              <div class="left">
+                <div><div class="title">Chat with support</div><div class="meta">Usually replies in under 5 minutes</div></div>
+              </div>
+              <button class="btn btn-ghost btn-sm">Chat</button>
+            </div>
+            <div class="list-row" style="border-top: 1px solid var(--line); margin-top:12px; padding-top:12px;">
+              <div class="left">
+                <div><div class="title" style="color:#e05050;">Sign out</div><div class="meta">Sign out of your Drip account</div></div>
+              </div>
+              <button class="btn btn-ghost btn-sm" style="color:#e05050;">Sign out</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="Drip.js"></script>
+</body>
+</html>
